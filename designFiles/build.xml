@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--
+	 ======================================================================
+     sisal product
+     ======================================================================
+-->
+
+<project name="sisalwar" default="packapp">
+    <property name="projectName" value="csr"/>
+    <property name="projectPath" value="../"/>
+    <property name="target" value="${projectPath}/web"/>
+    <property name="destPath" value="./"/>
+    <property name="src.dir" value="${projectPath}/src"/>
+    <property name="compile.dir" value="${target}/WEB-INF"/>
+    <property name="build.dir" value="${compile.dir}/classes"/>
+    <property name="lib.dir" value="${compile.dir}/lib"/>
+    <property name="lib.ant.dir" value="antlib"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${lib.ant.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+
+    </path>
+    <target name="init">
+        <delete dir="${build.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    </target>
+    <target name="compile_src" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" encoding="UTF-8" >
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+    <target name="packapp" depends="compile_src">
+        <war warfile="${destPath}/${projectName}.war" webxml="${target}/WEB-INF/web.xml">
+            <fileset dir="${target}">
+                <include name="**/*.*"/>
+            </fileset>
+        </war>
+    </target>
+</project>

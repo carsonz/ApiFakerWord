@@ -1,0 +1,43 @@
+<div class=vkcontent>
+    <div class="setting-cell">
+        <div class="title">接口名称: <input id="name_input" class="content" ng-model="model.apiName"></div>
+        <div class="line"></div>
+        <div class="title">URL: <input id="url_input" class="content" ng-model="model.url"></div>
+        <div class="line"></div>
+        <div class="title">转发: <input id="forward_input" class="content" ng-model="model.forwardUrl"></div>
+        <div class="line"></div>
+        <div class="title">
+            状态:
+            <select id="state_select" ng-model="stateUrl" ng-options='stateUrl.value for stateUrl in stateValue'
+                    ng-change='updateState(stateUrl)'></select>
+        </div>
+    </div>
+
+
+    <div class="parse-area">
+        <a class="title">请求参数:</a>
+        <div class="layout">
+            <textarea id="reqbody" ng-model="model.requestJson" class="body"></textarea>
+            <button style="margin-left:1%;float: left;width: 6%;" ng-click="transRequest()"> 转换 -></button>
+            <div class="parse">
+                <div ng-repeat="item in requestItems">
+                    <div class="parse-item">{{ item.name }}: </div>
+                    <input style="margin-left: 10px;width: 80%;margin-bottom: 5px" ng-model="item.intro" placeholder="注释">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="parse-area">
+        <a class="title">返回数据:</a>
+        <div class="layout">
+            <textarea id="respbody" ng-model="model.responseJson" class="body"></textarea>
+            <button style="margin-left:1%;float: left;width: 6%;" ng-click="transResp()"> 转换 -></button>
+            <div class="parse">
+                <div ng-repeat="item in respItems">
+                    <div class="parse-item">{{ item.name }}: </div>
+                    <input style="margin-left: 10px;width: 80%;margin-bottom: 5px" ng-model="item.intro" placeholder="注释">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

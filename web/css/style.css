@@ -1,0 +1,219 @@
+/* Empty. Add your own CSS if you like */
+
+.item-input input {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 220px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 220px;
+    -ms-flex: 1 0 220px;
+    flex: 1 0 220px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+    padding-right: 24px;
+    background-color: transparent; }
+.has-footer{
+    bottom: 44pt;
+}
+
+.wide-as-needed {
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+/*重写tab样式*/
+.tabs-green > .tabs, .tabs.tabs-green {
+    border-color: #00aaaa;
+    background-color: #00aaaa;
+    background-image: linear-gradient(0deg, #00aaaa, #00aaaa 50%, transparent 50%);
+    color: #fff; }
+.tabs-green > .tabs .tab-item .badge, .tabs.tabs-green .tab-item .badge {
+    background-color: #fff;
+    color: #00aaaa;
+}
+.tabs-striped.tabs-green .tabs {
+    background-color: #fff;
+}
+.tabs-striped.tabs-green .tab-item {
+    color: rgba(0,153, 153, 0.4);
+    opacity: 1; }
+.tabs-striped.tabs-green .tab-item .badge {
+    opacity: 0.4; }
+.tabs-striped.tabs-green .tab-item.tab-item-active, .tabs-striped.tabs-green .tab-item.active, .tabs-striped.tabs-green .tab-item.activated {
+    margin-top: -1px;
+    color: #00aaaa;
+    border-style: solid;
+    border-width: 2px 0 0 0;
+    border-color: #00aaaa; }
+/*结束*/
+
+/*重写导航条样式*/
+
+.bar-green .button {
+    border-color: #3f51b5;
+    background-color: #3f51b5;
+    color: #fff; }
+.bar-green .button:hover {
+    color: #fff;
+    text-decoration: none; }
+.bar-green .button.active, .bar-green .button.activated {
+    border-color: #00aaaa;
+    background-color: #00aaaa;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
+.bar-green .button.button-clear {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 17px; }
+.bar-green .button.button-icon {
+    border-color: transparent;
+    background: none; }
+.bar.bar-green {
+    border-color: #3f51b5;
+    background-color: #3f51b5;
+    background-image: linear-gradient(0deg, #3f51b5, #3f51b5 50%, transparent 50%);
+    color: #fff; }
+.bar.bar-positive .title {
+    color: #fff; }
+.bar.bar-positive.bar-footer {
+    background-image: linear-gradient(180deg, #00aaaa, #00aaaa 50%, transparent 50%); }
+
+
+
+/*结束*/
+
+
+/*界面样式样式*/
+.vkcontent {
+    padding:0px;
+}
+.setting-cell {
+    padding: 17px;
+    background-color: #F1F1F1;
+}
+.setting-cell .title{
+    color: #999999;
+    margin:10px;
+    font-size: 15px;
+}
+.setting-cell .content{
+    font-size: 17px;
+    color: #393939;
+    margin-left: 10px;
+}
+.setting-cell select{
+    font-size: 17px;
+    width:120px;
+}
+.setting-cell .line{
+    background: #d9d9d9;
+    width: 100%;
+    height: 1px;
+    margin-left: 12px;
+}
+.del-button{
+    background-image: url("../res/Delete.png");
+    background-color: transparent;
+    background-size: cover;
+    width: 20px;
+    border: 0;
+    margin:0 10px 0 10px;
+    outline:none;
+}
+
+
+.parse-area {
+    margin: 20px 5% 20px 5%;
+    width: 100%;
+}
+.parse-area .title{
+    font-size: 20px;
+    color: #393939;
+}
+.parse-area .layout{
+    width: 100%;
+    display: inline-block;
+    margin-top: 10px;
+}
+.parse-area .body{
+    width: 40%;
+    float: left;
+    height: 120px;
+}
+.parse-area .parse{
+    width: 40%;
+    margin-left: 1%;
+    float: left;
+    background-color: #F1F1F1;
+}
+.parse-area .parse-item{
+    color: #393939;
+    margin:10px 10px 2px 10px;
+    font-size: 15px;
+}
+
+.bottom-button{
+    background:#3f51b5;
+    width: 100%;
+    height:100%;
+    margin-top:17px;
+    border-width:0;
+    color:white;
+    border-radius:5pt;
+}
+.main-cell{
+    width: 33%;
+    float: left;
+    padding-left: 3%;
+    padding-right: 2%;
+}
+.main-cell-background{
+    width:100%;
+    height:auto;
+    background-color: rgba(0,0,0,0.2);/*(63,81,181,0.7);transparent;:#3f51b5;#ebdcc7*/
+    color:#f9f9f9;
+    border-radius:2px;
+    padding-top: 17px;
+    padding-bottom: 10px;
+}
+.main-cell-background.p{
+    font-size: 12px;
+    color: #f9f9f9;
+}
+.list-header{
+    width:100%;
+    background-color: rgba(235,220,199,0.75);/*(63,81,181,0.7);transparent;:#3f51b5;#ebdcc7*/
+    color:#333;
+}
+.list-header-cell {
+    width: 33%;
+    float: left;
+}
+.number-cell-background-hight {
+    width:100%;
+    height:auto;
+    border:#00afff 1px solid;
+    color:#008fff;
+    padding:5pt;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#008fff,direction=120,strength=3);/*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+    box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+}
+.number-cell-background{
+    width:100%;
+    height:auto;
+    border:#ffffff 1px solid;
+    color:#333;
+    padding:5pt;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+    box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+}
+
+/*结束*/
