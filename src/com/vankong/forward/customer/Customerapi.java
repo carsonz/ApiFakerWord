@@ -2,9 +2,6 @@ package com.vankong.forward.customer;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.vankong.forward.bankcardsyn.BankCardBean;
-import com.vankong.forward.bankcardsyn.CustomBankCardSynBeanCMIS;
-import com.vankong.forward.bankcardsyn.QueryCustomerBankResponse;
 import com.vankong.utils.VKHttpAbstract;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;

@@ -10,6 +10,8 @@ package com.vankong.servlet;
  * @修改备注：
  */
 public class WebAPI {
+    public static final String CONFIG_PATH = "configpath";
+
     public static final String PROJECT_LIST = "projlist";
     public static final String PROJECT_ADD = "projadd";
     public static final String PROJECT_DEL = "projdel";
@@ -17,6 +19,8 @@ public class WebAPI {
     public static final String CATEGORY_ADD = "categoryadd";
     public static final String CATEGORY_DEL = "categorydel";
     public static final String CATEGORY_LIST = "categorylist";
+    public static final String CATEGORY_UPDATE = "categoryupdate";
+
 
     public static final String API_ADD = "apiadd";
     public static final String API_DEL = "apidel";

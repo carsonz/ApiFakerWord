@@ -3,6 +3,7 @@ package com.vankong.servlet;
 import com.alibaba.fastjson.JSON;
 import com.vankong.apimanager.VKApiManager;
 import com.vankong.domain.VKApiBean;
+import com.vankong.domain.VKChangeBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,10 @@ public class VKWebServlet extends VKSuperSevlet {
         if (json.length() > 0){
             proj = JSON.parseObject(json, VKApiBean.class);
         }
-        if (api.equals(WebAPI.PROJECT_LIST)) {
+        if (api.equals(WebAPI.CONFIG_PATH)) {
+            String ret = VKApiManager.getInstance().getConfigPath();
+            writeResponse(resp,JSON.toJSONString(new VKResult(true,ret)));
+        }else if (api.equals(WebAPI.PROJECT_LIST)) {
             List<VKApiBean> ret = VKApiManager.getInstance().getProjectList();
             writeResponse(resp,JSON.toJSONString(new VKResult(ret)));
         }else if (api.equals(WebAPI.PROJECT_ADD)) {
@@ -48,6 +52,10 @@ public class VKWebServlet extends VKSuperSevlet {
             returnSimpleResult(resp,ret);
         }else if(api.equals(WebAPI.CATEGORY_DEL)) {
             boolean ret = VKApiManager.getInstance().removeCategory(proj);
+            returnSimpleResult(resp,ret);
+        }else if(api.equals(WebAPI.CATEGORY_UPDATE)) {
+            VKChangeBean cg = JSON.parseObject(json, VKChangeBean.class);
+            boolean ret = VKApiManager.getInstance().updateProjectCategory(cg);
             returnSimpleResult(resp,ret);
         }else if(api.equals(WebAPI.CATEGORY_LIST)) {
             List<VKApiBean> ret = VKApiManager.getInstance().getCategoryList(proj);

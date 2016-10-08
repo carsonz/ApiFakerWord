@@ -7,8 +7,17 @@ angular.module('listproject', [])
         {
             $rootScope.navtitle = "项目列表";
 
-            $rootScope.lefttitle = "";
+            $rootScope.lefttitle = "V_1.0.0.2";
             $rootScope.leftclick = function () {
+                //搜索列表
+                Project.getConfigPath().then(function(response)
+                {
+                    if (response.errCode == '0'){
+                        alert(response.errMsg);
+                    }else{
+                        alert("获取配置目录失败.");
+                    }
+                });
             }
 
             $rootScope.righttitle = "添加项目";
@@ -59,6 +68,25 @@ angular.module('listproject', [])
             Project.delProject(item.projectName).then(function(response)
             {
                 $scope.refresh();
+            });
+        }
+        //点击编辑处理
+        $scope.update = function(item,event)
+        {
+            var value = prompt("请输入项目名称",item.projectName);
+            event.stopPropagation();
+            if (value.length == null){
+                alert("请输入项目名称.");
+                return;
+            }
+            Project.updateProjectCategory(item.projectName,value,'','').then(function(response)
+            {
+                console.log('' + response);
+                if (response.errCode == '0'){
+                    $scope.refresh();
+                }else{
+                    alert("修改失败.");
+                }
             });
         }
 

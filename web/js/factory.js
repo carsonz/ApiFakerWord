@@ -4,6 +4,14 @@
 angular.module('factory', [])
 .factory('Project', function(VKHttp) {
     return {
+        //获取配置地址
+        getConfigPath : function () {
+            var requestUrl = "configpath";
+            return VKHttp.getRequest(requestUrl).then(function (response) {
+                return response;
+            });
+
+        },
         //获取项目
         getProjList : function () {
             var requestUrl = "projlist";
@@ -59,6 +67,20 @@ angular.module('factory', [])
             var body = {
                 projectName:projname,
                 categoryName:catename
+            }
+            return VKHttp.postRequest(requestUrl,body).then(function (response) {
+                return response;
+            });
+
+        },
+
+        updateProjectCategory : function (projname,projectNewName,catename,cateNewName) {
+            var requestUrl = "categoryupdate";
+            var body = {
+                projectName:projname,
+                projectNewName:('' + projectNewName),
+                categoryName:catename,
+                categoryNewName:('' + cateNewName)
             }
             return VKHttp.postRequest(requestUrl,body).then(function (response) {
                 return response;

@@ -2,12 +2,13 @@ package com.vankong.apimanager;
 
 import com.alibaba.fastjson.JSON;
 import com.vankong.domain.VKApiBean;
+import com.vankong.domain.VKChangeBean;
+import com.vankong.utils.PinYin2Abbreviation;
 import com.vankong.utils.Utils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.Collator;
+import java.util.*;
 
 /**
  * @项目名称：ApiFakerWord
@@ -39,22 +40,18 @@ public class VKApiManager {
 
     public String getRootPath()
     {
-        return System.getProperty("user.home") + "/.ApiFakerWord/";
-//        String system = System.getProperty("os.name");
-//        if (system.contains("windows")){
-//            String all = Thread.currentThread().getContextClassLoader().getResource("").toString();
-//            String unHead = all.substring(all.indexOf("file:") + 5);
-//            String ret = unHead.substring(0,unHead.indexOf("WEB-INF") + 8);
-//            return ret;
-//        }else{
-//            return "~/.ApiFakerWord/";
-//        }
+        String currentPath = getClass().getResource("/").getPath();
+        String webContent = currentPath.substring(0,currentPath.lastIndexOf("WEB-INF") - 1);
+        String separator = File.separator;
+        int last2Index = webContent.lastIndexOf(separator,webContent.lastIndexOf(separator) - 1);
+        String ret = webContent.substring(0,last2Index) +  "/.ApiFakerWord/";
+        return  ret;
+    }
+    public String getConfigPath()
+    {
+        return getRootPath() + CONFIG_FILE;
     }
 
-//    public String getRootPath()
-//    {
-
-//    }
     public synchronized void resetAll()
     {
         mApiList.clear();
@@ -63,7 +60,7 @@ public class VKApiManager {
         mCategoryKeyList.clear();
         mProjectKeyList.clear();
 
-        String json = Utils.readFile(getRootPath() + CONFIG_FILE);
+        String json = Utils.readFile(getConfigPath());
         if (!json.isEmpty()) {
             List<VKApiBean> configs = JSON.parseArray(json, VKApiBean.class);
             mApiList.addAll(configs);
@@ -75,6 +72,12 @@ public class VKApiManager {
     {
         List<VKApiBean> list = new ArrayList<VKApiBean>();
         list.addAll(mProjectKeyList.values());
+        Collections.sort(list, new Comparator<VKApiBean>() {
+            @Override
+            public int compare(VKApiBean o1, VKApiBean o2) {
+                return (PinYin2Abbreviation.cn2py(o1.getProjectName()).compareTo(PinYin2Abbreviation.cn2py(o2.getProjectName())));// > ?1:0);
+            }
+        });
         return list;
     }
     public List<VKApiBean> getCategoryList(VKApiBean p)
@@ -84,6 +87,12 @@ public class VKApiManager {
         HashMap<String,VKApiBean> cateMap = mCategoryKeyList.get(p.getProjectName());
         if (cateMap != null){
             list.addAll(cateMap.values());
+            Collections.sort(list, new Comparator<VKApiBean>() {
+                @Override
+                public int compare(VKApiBean o1, VKApiBean o2) {
+                    return (PinYin2Abbreviation.cn2py(o1.getCategoryName()).compareTo(PinYin2Abbreviation.cn2py(o2.getCategoryName())));// > ?1:0);
+                }
+            });
         }
         return list;
     }
@@ -153,29 +162,49 @@ public class VKApiManager {
         p.setUrl("/user/login");
     }
 
-    public VKApiBean getApi(String api)
+    public synchronized VKApiBean getApi(String api)
     {
         return mApiUrlMap.get(api);
     }
 
     public synchronized boolean removeProject(VKApiBean proj)
     {
+        List<VKApiBean> removes = new ArrayList<>();
         for (VKApiBean b : mApiList) {
             if (proj.getProjectName().equals(b.getProjectName()))
             {
-                mApiList.remove(b);
-                break;
+                removes.add(b);
             }
         }
+        mApiList.removeAll(removes);
         return saveToFile();
     }
     public synchronized boolean removeCategory(VKApiBean cate)
     {
+        List<VKApiBean> removes = new ArrayList<>();
         for (VKApiBean b : mApiList) {
             if (cate.getProjectName().equals(b.getProjectName()) && cate.getCategoryName().equals(b.getCategoryName()))
             {
-                mApiList.remove(b);
-                break;
+                removes.add(b);
+            }
+        }
+        mApiList.removeAll(removes);
+        return saveToFile();
+    }
+    public synchronized boolean updateProjectCategory(VKChangeBean cate)
+    {
+        for (VKApiBean b : mApiList) {
+            if (cate.getProjectName().equals(b.getProjectName())) {
+                //修改分类
+                if (cate.getCategoryName() != null && cate.getCategoryName().trim().length() > 0) {
+                    if (cate.getCategoryName().equals(b.getCategoryName())){
+                        b.setProjectName(cate.getProjectNewName());
+                        b.setCategoryName(cate.getCategoryNewName());
+                    }
+                }else {
+                    //修改项目名称
+                    b.setProjectName(cate.getProjectNewName());
+                }
             }
         }
         return saveToFile();
@@ -189,7 +218,6 @@ public class VKApiManager {
             if (api.getApiId().equals(b.getApiId()))
             {
                 mApiList.remove(b);
-                break;
             }
         }
         return saveToFile();
