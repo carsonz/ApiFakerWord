@@ -14,25 +14,25 @@ import java.util.List;
  * @修改备注：
  */
 public class VKApiBean {
-    private String apiId;
-    private String apiName;
+    private String apiId;   //apiID
+    private String apiName;  //api名称
 
-    private String categoryName;
-    private String projectName;
+    private String categoryName;    //所属分类名称
+    private String projectName;     //所属项目名称
 
-    private String url;
-    private String forwardUrl;
+    private String url;             //自身url路径
+    private String forwardUrl;      //目标.do的url路径
 
     private ArrayList<String> imageList;
-    private int apiState;
+    private int apiState;     //转发(0)  还是模拟(1)
 
-    private String requestJson;
+    private String requestJson;    //request模拟数据
     private HashMap<String,String> requestMap;
-    private List<VKApiIntro> requestIntroMap;
+    private List<VKApiIntro> requestIntroMap;   //模拟请求数据 字段说明
 
-    private String responseJson;
+    private String responseJson;     //response模拟数据
     private HashMap<String,String> responseMap;
-    private List<VKApiIntro> responseIntroMap;
+    private List<VKApiIntro> responseIntroMap;   //模拟返回数据 字段说明
 
     public VKApiBean()
     {

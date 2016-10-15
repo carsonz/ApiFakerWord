@@ -31,19 +31,18 @@ public class VKApiManager {
     }
     public final static String CONFIG_FILE = "config/config.json";
 
-    private ArrayList<VKApiBean> mApiList = new ArrayList<VKApiBean>();
-    private HashMap<String,VKApiBean> mApiUrlMap = new HashMap<String, VKApiBean>();
-    private HashMap<String,VKApiBean> mProjectKeyList = new HashMap<String, VKApiBean>();
-    private HashMap<String,HashMap<String,VKApiBean>> mCategoryKeyList = new HashMap<String, HashMap<String, VKApiBean>>();
-    private HashMap<String,List<VKApiBean>> mApiKeyMap = new HashMap<String, List<VKApiBean>>();
+    private ArrayList<VKApiBean> mApiList = new ArrayList<VKApiBean>();  //所有对象集合 用来遍历
+    private HashMap<String,VKApiBean> mApiUrlMap = new HashMap<String, VKApiBean>();  //接口集合
+    private HashMap<String,VKApiBean> mProjectKeyList = new HashMap<String, VKApiBean>();  //项目集合
+    private HashMap<String,HashMap<String,VKApiBean>> mCategoryKeyList = new HashMap<String, HashMap<String, VKApiBean>>(); //分类集合
+    private HashMap<String,List<VKApiBean>> mApiKeyMap = new HashMap<String, List<VKApiBean>>();    //同类接口集合
 
 
     public String getRootPath()
     {
         String currentPath = getClass().getResource("/").getPath();
         String webContent = currentPath.substring(0,currentPath.lastIndexOf("WEB-INF") - 1);
-        String separator = File.separator;
-        int last2Index = webContent.lastIndexOf(separator,webContent.lastIndexOf(separator) - 1);
+        int last2Index = webContent.lastIndexOf("/",webContent.lastIndexOf("/") - 1);
         String ret = webContent.substring(0,last2Index) +  "/.ApiFakerWord/";
         return  ret;
     }
@@ -51,7 +50,6 @@ public class VKApiManager {
     {
         return getRootPath() + CONFIG_FILE;
     }
-
     public synchronized void resetAll()
     {
         mApiList.clear();
@@ -169,7 +167,7 @@ public class VKApiManager {
 
     public synchronized boolean removeProject(VKApiBean proj)
     {
-        List<VKApiBean> removes = new ArrayList<>();
+        List<VKApiBean> removes = new ArrayList<VKApiBean>();
         for (VKApiBean b : mApiList) {
             if (proj.getProjectName().equals(b.getProjectName()))
             {
@@ -181,7 +179,7 @@ public class VKApiManager {
     }
     public synchronized boolean removeCategory(VKApiBean cate)
     {
-        List<VKApiBean> removes = new ArrayList<>();
+        List<VKApiBean> removes = new ArrayList<VKApiBean>();
         for (VKApiBean b : mApiList) {
             if (cate.getProjectName().equals(b.getProjectName()) && cate.getCategoryName().equals(b.getCategoryName()))
             {

@@ -57,12 +57,12 @@ public class VKHookServlet extends VKSuperSevlet{
     private void forwardApi(HttpServletRequest req,HttpServletResponse resp,VKApiBean apiBean)
     {
         String api = apiBean.getForwardUrl();
-        VKHttpAbstract del = VKForwardManager.getManager().getApiHook(api);
+        VKHttpAbstract del = VKForwardManager.getManager().getApiHook(api);  //根据转发地址获取相对应的处理类
         String headerc = req.getHeader("Cookie");
         if (headerc == null){
             headerc = req.getHeader("Cookies");
         }
-        VKResult rep = new VKHttpClient().postJson(apiBean.getForwardUrl(),readRequestBody(req),headerc,del);
+        VKResult rep = new VKHttpClient().postJson(apiBean.getForwardUrl(),readRequestBody(req),headerc,del);  //网络请求
         System.out.println("resp:" + rep.getErrCode() + "\napibean:" + JSON.toJSONString(apiBean));
         if (!"200".equals(rep.getErrCode())){
             writeObject(resp,rep);

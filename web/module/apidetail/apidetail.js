@@ -62,6 +62,17 @@ angular.module('apidetail', [])
             $scope.model.url = $scope.proj.url;
             $scope.model.forwardUrl = $scope.proj.forwardUrl;
         }
+        var changeStateNotice = function(statte)
+        {
+            if ('0' == statte){
+                _T("stateNotice").innerText = '注:模拟状态调用接口,将返回下方返回数据框中的内容.';
+            }else{
+                _T("stateNotice").innerText = '注:转发状态调用接口,会请求上方地址,并且将RequestBody以Post Json形式访问并返回.';
+            }
+        }
+
+        $scope.fullUrl = API.FAKER + $scope.proj.url;
+        $scope.domain = API.FAKER;
 
         //状态修改模块
         {
@@ -70,11 +81,13 @@ angular.module('apidetail', [])
                 {value:"转发",state:1}
             ]
             var current = $scope.model.apiState;
+            changeStateNotice(current);
             $scope.stateUrl = $scope.stateValue[current];
 
             $scope.updateState = function(state)
             {
                 $scope.model.apiState = state.state;
+                changeStateNotice(state.state);
             }
         }
 
@@ -116,7 +129,13 @@ angular.module('apidetail', [])
             var json = document.getElementById("reqbody").value;
             if (json.length > 0){
                 $scope.requestItems = [];
-                var req = JSON.parse(json);
+                var req = null;
+                var reqAll = JSON.parse(json);
+                if (reqAll instanceof Array){
+                    req = reqAll[0];
+                }else{
+                    req = reqAll;
+                }
                 for(var p in req){
                     if(req.hasOwnProperty(p)){
                         var note = "";
@@ -141,7 +160,17 @@ angular.module('apidetail', [])
             var json = document.getElementById("respbody").value;
             if (json.length > 0){
                 $scope.respItems = [];
-                var req = JSON.parse(json);
+                var req = null;
+                var jsonAll = JSON.parse(json);
+
+                var reqAll = getIntroResp(jsonAll);
+
+                if (reqAll instanceof Array){
+                    req = reqAll[0];
+                }else{
+                    req = reqAll;
+                }
+
                 for(var p in req){
                     if(req.hasOwnProperty(p)){
                         var note = "";
@@ -160,6 +189,24 @@ angular.module('apidetail', [])
                     }
                 }
             }
+        }
+
+        var getIntroResp = function(json)
+        {
+            var req = null;
+            if (json instanceof Array){
+                req = json[0];
+            }else {
+                req = json;
+                var respKey = ['data', 'response', 'responseData', 'result'];
+                for (var index = 0; index < respKey.length;index++) {
+                    var p = respKey[index];
+                    if (req.hasOwnProperty(p)) {
+                        return req[p];
+                    }
+                }
+            }
+            return json;
         }
 
         $timeout($scope.transRequest,200);

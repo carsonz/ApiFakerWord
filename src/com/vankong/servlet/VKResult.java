@@ -15,9 +15,9 @@ import java.util.List;
  * @修改备注：
  */
 public class VKResult {
-    private String errCode;
-    private String errMsg;
-    private List<Object> result = new ArrayList<Object>();
+    private String errCode;   //成功标记
+    private String errMsg;   //返回的数据
+    private List<Object> result = new ArrayList<Object>();  //用户web界面返回数据结果
     public VKResult(boolean success,String retMsg)
     {
         if (success){

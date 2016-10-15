@@ -5,6 +5,7 @@
 
 
 var API = {
-    SERVER:"http://" + window.location.host + "/api/webapi/"
+    SERVER:"http://" + window.location.host + "/api/webapi/",
+    FAKER:"http://" + window.location.host + "/api/faker/"
 }
 

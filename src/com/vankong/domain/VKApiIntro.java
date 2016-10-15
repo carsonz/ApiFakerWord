@@ -10,8 +10,9 @@ package com.vankong.domain;
  * @修改备注：
  */
 public class VKApiIntro {
-    private String name;
-    private String intro;
+    private int level;
+    private String name;   //字段名称
+    private String intro;  //字段说明
 
     public String getName() {
         return name;
@@ -27,5 +28,13 @@ public class VKApiIntro {
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
